@@ -7,18 +7,6 @@
     box-sizing: border-box;
 }
 
-
-/* ANIMATION */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
 body {
     /* 모바일 수평 스크롤 금지 */
     max-width: 100%;
@@ -29,11 +17,25 @@ body {
     flex-direction: column;
 }
 
+
+/* 모든 font-size px 단위를 rem으로 변경 / 나중에 사용자가 글자크기 조절시 적용가능 */
+
+
+/* 수정 요구사항 inner container 따로 빼서 inner 표현 */
+
 .bg-container {
     height: 100vh;
     transition: 0.5s ease-in;
     background-position: center cover;
+    display: flex;
+    flex-direction: column;
 }
+
+
+/* background slider button */
+
+
+/* 가상요소를 만들기 위해 container를 만들어서 before로 button 옆에 붙임*/
 
 .bg-container .bg_button {
     padding-top: 30px;
@@ -83,6 +85,10 @@ body {
     transition: 0.2s ease-in;
 }
 
+
+/* vanilla JS 에서 어떻게 하면 가상요소 선택자의 css를 변경 가능한지? 
+하고 싶은 것 : 아래 background random 변경 */
+
 .bg_btn_container.right:hover::before {
     background: url("./images/background/1.jpg") center/cover;
     transform: translate(60px);
@@ -116,7 +122,7 @@ header img.logo {
     max-width: 200px;
 }
 
-header a:nth-child(1) {
+header>.header-container.toggle>a:first-child {
     display: none;
 }
 
@@ -137,7 +143,6 @@ header .menu ul li {
     z-index: 5;
     background: #fff;
     display: none;
-    position: absolute;
     transition: 0.25s ease-in;
 }
 
@@ -170,6 +175,10 @@ header .menu ul li {
     color: rgb(37, 144, 231);
 }
 
+header .nav-icon.toggleBtn {
+    display: none;
+}
+
 header .menu ul li:hover {
     cursor: pointer;
     color: rgb(37, 144, 231);
@@ -179,18 +188,19 @@ header .menu ul li:hover {
 /* FIRST-SECTION */
 
 .first-part {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
     max-width: var(--main-container-max-width);
-    height: 90%;
-    position: relative;
-    margin: auto;
+    height: 90vh;
+    margin: 0 auto;
     color: #ffff;
 }
 
 .first-part .first-part-container {
-    position: absolute;
-    top: 20vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
 }
 
 .first-part .line-logo {
@@ -256,7 +266,8 @@ header .menu ul li:hover {
     padding-top: 20px;
     padding-bottom: 60px;
     margin: 0 auto;
-    width: 100vw;
+    width: 100%;
+    height: 100%;
     max-width: var(--main-container-max-width);
 }
 
@@ -394,6 +405,14 @@ header .menu ul li:hover {
     text-align: center;
 }
 
+.last-part .last-part-comment {
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .last-part .last-part-comment h1 {
     font-size: 3rem;
     font-weight: 700;
@@ -402,7 +421,7 @@ header .menu ul li:hover {
 
 .last-part .last-part-comment p {
     color: rgba(128, 124, 124, 0.7);
-    line-height: 2.5rem;
+    line-height: 1.5rem;
 }
 
 .last-part .last-part-info {
@@ -421,7 +440,7 @@ header .menu ul li:hover {
 /* FOOTER */
 
 footer {
-    width: 100%;
+    max-width: 100%;
     height: 25vh;
     background: rgb(12, 46, 85);
 }
@@ -431,13 +450,13 @@ footer .footer-container {
     justify-content: space-between;
     padding-top: 50px;
     max-width: var(--main-container-max-width);
-    margin: auto;
+    margin: 0 auto;
 }
 
 footer .footer-container p {
     color: #ffff;
-    font-size: 14px;
-    line-height: 30px;
+    font-size: 0.8rem;
+    line-height: 1.5rem;
 }
 
 footer .footer-container .footer-info p:nth-child(2) {
@@ -460,11 +479,11 @@ footer .footer-container .footer-info p:nth-child(2) {
     header.header-container {
         width: none;
     }
-    header a:nth-child(1) {
+    header>.header-container.toggle>a:first-child {
         display: block;
     }
     header img.m-logo {
-        max-width: 200px;
+        width: 200px;
     }
     section.second-part .number-list {
         display: grid;
@@ -479,19 +498,23 @@ footer .footer-container .footer-info p:nth-child(2) {
     .bg_btn_container {
         display: none;
     }
+    .first-part .first-part-container {
+        height: 100vh;
+    }
     .third-part {
-        height: 140vh;
+        height: auto;
+        padding-bottom: 30px;
     }
     .third-part .third-part-container {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 6rem;
-        margin: auto;
     }
     .last-part {
         max-width: var(--main-container-max-width);
         margin: auto;
-        height: 220vh;
+        height: auto;
+        margin-bottom: 30px;
         text-align: center;
     }
     .last-part .last-part-info {
@@ -502,7 +525,7 @@ footer .footer-container .footer-info p:nth-child(2) {
         justify-content: space-between;
     }
     footer {
-        height: 40vh;
+        height: auto;
     }
     footer .footer-container {
         height: 100%;
@@ -510,6 +533,9 @@ footer .footer-container .footer-info p:nth-child(2) {
         flex-direction: column;
         justify-content: center;
         align-content: space-around;
+    }
+    header .nav-icon.toggleBtn {
+        display: block;
     }
     .nav-icon {
         margin: 1em;
@@ -542,16 +568,18 @@ footer .footer-container .footer-info p:nth-child(2) {
 
 @media screen and (max-width:768px) {
      :root {
-        --main-container-max-width: 80%;
+        --main-container-max-width: 90%;
     }
     section.second-part .number-list {
         grid-template-columns: repeat(1, 1fr);
     }
     .third-part {
-        height: 120vh;
+        height: auto;
+        padding-bottom: 30px;
     }
     .last-part {
-        height: 200vh;
+        height: auto;
+        margin-bottom: 30px;
     }
     section.third-part .third-part-container .comment p {
         max-width: 500px;
@@ -571,6 +599,6 @@ footer .footer-container .footer-info p:nth-child(2) {
         max-width: 300px;
     }
     .last-part {
-        height: 130vh;
+        height: auto;
     }
 }
